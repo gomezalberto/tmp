@@ -2,6 +2,11 @@
 #include <Modules/USStreamingCommon/DNLImage.h>
 #include <thread>
 
+DNLFrameExchange::DNLFrameExchange(){
+     current_frame = nullptr;
+}
+
+
 void DNLFrameExchange::add_frame(DNLImage::Pointer frame) {
     mutex.lock();
     current_frame = frame;
@@ -14,7 +19,7 @@ void DNLFrameExchange::add_frame(DNLImage::Pointer frame) {
 DNLImage::Pointer DNLFrameExchange::get_frame() {
     // Block until we have at least one frame
     while (current_frame == nullptr) {
-        std::this_thread::sleep_for(std::chrono::seconds(1));
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     }
 
     return current_frame;

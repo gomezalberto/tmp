@@ -7,11 +7,14 @@
 class DNLFrameExchange
 {
 public:
+
+    DNLFrameExchange();
+
     void add_frame(DNLImage::Pointer frame);
     DNLImage::Pointer get_frame();
 
 private:
-    DNLImage::Pointer current_frame = nullptr;
+    DNLImage::Pointer current_frame;
     std::mutex mutex;
 };
 
